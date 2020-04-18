@@ -41,8 +41,6 @@ namespace WeatherApp.Views
         private void SetLoadingVisibility(bool isVisible)
         {
             isLoadingActivityIndicator.IsRunning = isLoadingActivityIndicator.IsVisible = isVisible;
-
-            contentStackLayout.IsVisible = !isVisible;
         }
     }
 }

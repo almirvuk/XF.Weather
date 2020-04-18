@@ -53,8 +53,7 @@
         </Grid>
 
         <ScrollView>
-            <StackLayout Padding="10" 
-                         x:Name="contentStackLayout">
+            <StackLayout Padding="10">
                 
                 <ActivityIndicator 
                     x:Name="isLoadingActivityIndicator"
@@ -105,6 +104,8 @@
                         <FormattedString>
                             <Span Text="Visibility: " />
                             <Span Text="{Binding Weather[0].Visibility}" TextColor="Black"/>
+                            <Span Text=" - " TextColor="Black"/>
+                            <Span Text="{Binding Weather[0].Description}" TextColor="Black"/>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
