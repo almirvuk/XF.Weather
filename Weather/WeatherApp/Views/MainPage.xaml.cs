@@ -20,22 +20,29 @@ namespace WeatherApp.Views
         {
             if (!string.IsNullOrWhiteSpace(_cityEntry.Text))
             {
-                isLoadingActivityIndicator.IsRunning = isLoadingActivityIndicator.IsVisible = true;
+                SetLoadingVisibility(true);
 
-                WeatherData weatherData = await _restService.GetWeatherData(GenerateRequestUri(Constants.OpenWeatherMapEndpoint));
+                WeatherData weatherData = await _restService.GetWeatherData(GenerateRequestUri());
                 BindingContext = weatherData;
 
-                isLoadingActivityIndicator.IsRunning = isLoadingActivityIndicator.IsVisible = false;
+                SetLoadingVisibility(false);
             }
         }
 
-        private string GenerateRequestUri(string endpoint)
+        private string GenerateRequestUri()
         {
-            string requestUri = endpoint;
+            string requestUri = Constants.OpenWeatherMapEndpoint;
             requestUri += $"?q={_cityEntry.Text}";
             requestUri += "&units=metric"; 
             requestUri += $"&APPID={Constants.OpenWeatherMapAPIKey}";
             return requestUri;
+        }
+
+        private void SetLoadingVisibility(bool isVisible)
+        {
+            isLoadingActivityIndicator.IsRunning = isLoadingActivityIndicator.IsVisible = isVisible;
+
+            contentStackLayout.IsVisible = !isVisible;
         }
     }
 }

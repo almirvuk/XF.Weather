@@ -53,7 +53,8 @@
         </Grid>
 
         <ScrollView>
-            <StackLayout Padding="10">
+            <StackLayout Padding="10" 
+                         x:Name="contentStackLayout">
                 
                 <ActivityIndicator 
                     x:Name="isLoadingActivityIndicator"
