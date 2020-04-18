@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WeatherApp.Helpers" 
+             x:Class="WeatherApp.Views.MainPage">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="labelStyle" 
+                   TargetType="Label">
+                <Setter Property="FontSize" 
+                        Value="24" />
+                <Setter Property="TextColor" 
+                        Value="Gray" />
+
+                <Setter Property="FontFamily" Value="Bebas" />
+            </Style>
+            
+            <local:LongToDateTimeConverter x:Key="longToDateTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <StackLayout>
+        <Grid BackgroundColor="#545454" 
+              Padding="10,10,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            
+            <Entry x:Name="_cityEntry"
+                   Grid.Row="1" 
+                   FontFamily="Bebas"
+                   Grid.Column="0"
+                   Margin="5,0"
+                   VerticalOptions="Center"
+                   BackgroundColor="DarkGray"
+                   TextColor="White" 
+                   Placeholder="Type city name..."/>
+            
+            <Button Grid.Row="1" 
+                    Grid.Column="1"
+                    Text="Get Weather Data" 
+                    BackgroundColor="Black"
+                    TextColor="White"
+                    FontFamily="Bebas"
+                    Clicked="OnGetWeatherButtonClicked" />
+        </Grid>
+
+        <ScrollView>
+            <StackLayout Padding="10">
+                
+                <ActivityIndicator 
+                    x:Name="isLoadingActivityIndicator"
+                    HorizontalOptions="Center"
+                    Color="Black"
+                    IsVisible="False"
+                    IsRunning="False"/>
+
+                <Label Style="{StaticResource labelStyle}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Location: " />
+                            <Span Text="{Binding Title}" TextColor="Black"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Style="{StaticResource labelStyle}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Temperature: " />
+                            <Span Text="{Binding Main.Temperature}" TextColor="Black"/>
+                            <Span Text=" °C" TextColor="Black"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Style="{StaticResource labelStyle}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Wind Speed: " />
+                            <Span Text="{Binding Wind.Speed}" TextColor="Black"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Style="{StaticResource labelStyle}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Humidity: " />
+                            <Span Text="{Binding Main.Humidity}" TextColor="Black"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Style="{StaticResource labelStyle}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Visibility: " />
+                            <Span Text="{Binding Weather[0].Visibility}" TextColor="Black"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Style="{StaticResource labelStyle}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Time of Sunrise: " />
+                            <Span Text="{Binding Sys.Sunrise, Converter={StaticResource longToDateTimeConverter}}" 
+                                  TextColor="Black"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Style="{StaticResource labelStyle}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Time of Sunset: " />
+                            <Span Text="{Binding Sys.Sunset, Converter={StaticResource longToDateTimeConverter}}" 
+                                  TextColor="Black"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>    
+</ContentPage>
